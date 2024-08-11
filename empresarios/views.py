@@ -150,7 +150,10 @@ def listar_empresas(request):
         return render(request, 'listar_empresas.html', {'empresas': empresas})
 
     elif request.method == "POST":
-        nome = request.POST.get('nome')
+        nome = request.POST.get('empresa')
+        empresas = Empresas.objects.filter(nome__icontains=nome, user=request.user)
+        return render(request, 'listar_empresas.html', {'empresas': empresas})
+        
 
 @login_required(login_url='/user/logar/')
 def empresa(request, id):
